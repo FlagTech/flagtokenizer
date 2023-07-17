@@ -1,7 +1,7 @@
 import tiktoken
 from colors import color
 
-def tokenizer(msg, model="gpt-3.5-turbo"):
+def tokenizer(msg, model="gpt-3.5-turbo", show=True):
     encoder = tiktoken.encoding_for_model(model)
     color_pallet = (                
         '#FFB347', # Pastel orange (淡橙色)
@@ -16,11 +16,13 @@ def tokenizer(msg, model="gpt-3.5-turbo"):
     )
     idx = 0
     tokens = encoder.encode(msg)
-    print(tokens)
-    for token in tokens:
-        print(color(encoder.decode([token]), 
-                    fg='black',
-                    bg=color_pallet[idx]), 
-              end='')
-        idx = (idx + 1) % len(color_pallet)
-    print()
+    if show:
+        print(tokens)
+        for token in tokens:
+            print(color(encoder.decode([token]), 
+                        fg='black',
+                        bg=color_pallet[idx]), 
+                end='')
+            idx = (idx + 1) % len(color_pallet)
+        print()
+    return tokens
