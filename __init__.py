@@ -17,7 +17,6 @@ def tokenizer(msg, model="gpt-3.5-turbo", show=True):
     idx = 0
     tokens = encoder.encode(msg)
     if show:
-        print(tokens)
         for token in tokens:
             print(color(encoder.decode([token]), 
                         fg='black',
