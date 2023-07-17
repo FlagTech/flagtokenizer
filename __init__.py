@@ -25,3 +25,16 @@ def tokenizer(msg, model="gpt-3.5-turbo", show=True):
             idx = (idx + 1) % len(color_pallet)
         print()
     return tokens
+
+def tokens_in_messages(messages, model="gpt-3.5-turbo", 
+                       show=False):
+    totals = 0
+    for message in messages:
+        for k in message:
+            if k == "content":
+                totals += 4 # <|im_start|>user\n{內容}<|im_end|>
+                totals += len(tokenizer(message[k],
+                                        model,
+                                        show))
+    totals += 3 # <|im_start|>assistant<|message|>
+    return totals
